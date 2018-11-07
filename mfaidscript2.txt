@@ -1,8 +1,8 @@
 USE mfaidassign2db;
 
-LOAD DATA LOCAL INFILE '/Desktop/loaddatafall2018.txt'
+LOAD DATA LOCAL INFILE './loaddatafall2018.txt'
 INTO TABLE Product
-TERMINATED BY ','
+COLUMN TERMINATED BY ','
 LINES TERMINATED BY '\n';
 
 SELECT * FROM Product;
@@ -45,8 +45,8 @@ VALUES
 	(14, 66, 19);
 	
 SELECT * FROM Product;
-SELECT * FROM Agents;
-SELECT * FROM Customers;
-SELECT * FROM Purchses;
+SELECT * FROM Agent;
+SELECT * FROM Customer;
+SELECT * FROM Purchases;
 
 
