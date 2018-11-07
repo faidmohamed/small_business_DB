@@ -1,0 +1,231 @@
+Warning: Using a password on the command line interface can be insecure.
+--------------
+SELECT Description FROM Product
+--------------
+
+Description
+Bike
+Socks
+Toothbrush
+Elbow pads
+Knee Pads
+Roller Blades
+Helmet
+--------------
+SELECT DISTINCT City FROM Customer
+--------------
+
+City
+Bedrock
+Springfield
+Kypto
+Providence
+--------------
+SELECT * FROM Agent ORDER BY City ASC
+--------------
+
+AgentID	FirstName	LastName	City	Commission
+33	David	Letterman	Bedrock	100
+11	Regis	Philbin	Boston	33
+22	Courtney	Cox	New York	25
+12	Rosie	Cox	Ottawa	50
+66	Rosie	ODonnell	Ottawa	100
+99	Hugh	Grant	Springfield	16
+--------------
+SELECT FirstName, LastName FROM Customer WHERE City = 'Springfield'
+--------------
+
+FirstName	LastName
+Monty	Burns
+Homer	Simpson
+Sideshow	Bob
+--------------
+SELECT Lastname FROM Customer WHERE AgentID = 11
+--------------
+
+Lastname
+Rubble
+Flintstone
+--------------
+SELECT Description FROM Product WHERE Description LIKE '%pad%' OR Description LIKE '%Pad%'
+--------------
+
+Description
+Elbow pads
+Knee Pads
+--------------
+SELECT LastName, Description, Quantity 
+	FROM Customer, Product, Purchases 
+	WHERE Customer.CustomerID = Purchases.CustomerID 
+	AND Product.ProductID = Purchases.ProductID
+--------------
+
+LastName	Description	Quantity
+Griffens	Elbow pads	19
+Flintstone	Elbow pads	2
+Flintstone	Knee Pads	2
+Simpson	Socks	14
+Simpson	Elbow pads	10
+Simpson	Helmet	20
+Bob	Socks	2
+Bob	Elbow pads	2
+Bob	Knee Pads	4
+Bob	Helmet	1
+--------------
+SELECT COUNT(FirstName) AS 'Homers Total Purchases' 
+	FROM Purchases, Customer 
+	WHERE Customer.CustomerID = Purchases.CustomerID AND FirstName = 'Homer'
+--------------
+
+Homers Total Purchases
+3
+--------------
+SELECT FirstName, LastName,
+	COUNT(Description) AS Purchases_count 
+	FROM Customer, Product, Purchases 
+	WHERE Customer.CustomerID = Purchases.CustomerID 
+	AND Product.ProductID = Purchases.ProductID
+--------------
+
+FirstName	LastName	Purchases_count
+Peter	Griffens	10
+--------------
+SELECT Description, QuantityAvailable
+	FROM Purchases, Product
+	WHERE Product.ProductID <> Purchases.ProductID
+--------------
+
+Description	QuantityAvailable
+Bike	200
+Toothbrush	200
+Elbow pads	120
+Knee Pads	70
+Roller Blades	89
+Helmet	30
+Bike	200
+Toothbrush	200
+Elbow pads	120
+Knee Pads	70
+Roller Blades	89
+Helmet	30
+Bike	200
+Socks	100
+Toothbrush	200
+Knee Pads	70
+Roller Blades	89
+Helmet	30
+Bike	200
+Socks	100
+Toothbrush	200
+Knee Pads	70
+Roller Blades	89
+Helmet	30
+Bike	200
+Socks	100
+Toothbrush	200
+Knee Pads	70
+Roller Blades	89
+Helmet	30
+Bike	200
+Socks	100
+Toothbrush	200
+Knee Pads	70
+Roller Blades	89
+Helmet	30
+Bike	200
+Socks	100
+Toothbrush	200
+Elbow pads	120
+Roller Blades	89
+Helmet	30
+Bike	200
+Socks	100
+Toothbrush	200
+Elbow pads	120
+Roller Blades	89
+Helmet	30
+Bike	200
+Socks	100
+Toothbrush	200
+Elbow pads	120
+Knee Pads	70
+Roller Blades	89
+Bike	200
+Socks	100
+Toothbrush	200
+Elbow pads	120
+Knee Pads	70
+Roller Blades	89
+--------------
+SELECT Description, QuantityAvailable
+	FROM Customer, Product, Purchases
+	WHERE Customer.CustomerID = Purchases.CustomerID
+	AND Product.ProductID = Purchases.ProductID
+	AND FirstName <> 'Fred'
+	AND LastName <> 'Flintstone'
+--------------
+
+Description	QuantityAvailable
+Elbow pads	120
+Socks	100
+Elbow pads	120
+Helmet	30
+Socks	100
+Elbow pads	120
+Knee Pads	70
+Helmet	30
+--------------
+SELECT Agent.FirstName, Agent.LastName
+ 	FROM Agent, Customer
+ 	WHERE Customer.AgentID = Agent.AgentID
+ 	AND Agent.City = Customer.City
+--------------
+
+FirstName	LastName
+Hugh	Grant
+Hugh	Grant
+--------------
+SELECT SUM(Quantity) FROM Purchases WHERE ProductID = 78
+--------------
+
+SUM(Quantity)
+6
+--------------
+SELECT temp.Description
+ 	FROM (SELECT COUNT(Purchases.ProductID) AS count, Description
+ 		FROM Product, Purchases
+		WHERE Product.ProductID = Purchases.ProductID) AS temp
+	WHERE temp.count > 3
+--------------
+
+Description
+Socks
+--------------
+CREATE TABLE temp1 AS(
+	SELECT Agent.FirstName AS AgentFname, Agent.LastName AS AgentLname, CustomerID AS CID
+		FROM Agent, Customer
+		WHERE Customer.AgentID = Agent.AgentID)
+--------------
+
+--------------
+CREATE TABLE temp2 AS(
+	SELECT Customer.CustomerID
+		FROM Customer, Product, Purchases
+		WHERE Customer.CustomerID = Purchases.CustomerID
+		AND Product.ProductID = Purchases.ProductID
+		AND Product.ProductID = 78)
+--------------
+
+--------------
+SELECT AgentFname, AgentLname
+	FROM temp1, temp2
+	WHERE temp1.CID = temp2.CustomerID
+--------------
+
+AgentFname	AgentLname
+Regis	Philbin
+Rosie	ODonnell
+--------------
+DROP TABLE temp1, temp2
+--------------
+

@@ -1,0 +1,139 @@
+Warning: Using a password on the command line interface can be insecure.
+--------------
+SELECT * FROM Product
+--------------
+
+ProductID	Description	Cost	QuantityAvailable
+11	Bike	150	200
+12	Socks	2	100
+23	Toothbrush	5	200
+66	Elbow pads	14.25	120
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+SELECT * FROM Agent
+--------------
+
+AgentID	FirstName	LastName	City	Commission
+11	Regis	Philbin	Boston	33
+12	Rosie	Cox	Ottawa	50
+22	Courtney	Cox	New York	25
+33	David	Letterman	Bedrock	100
+66	Rosie	ODonnell	Ottawa	100
+77	Mohamed	Faid	London	200
+99	Hugh	Grant	Springfield	16
+--------------
+SELECT * FROM Customer
+--------------
+
+CustomerID	FirstName	LastName	City	PhoneNumber	AgentID
+10	Barney	Rubble	Bedrock	-457	11
+12	Monty	Burns	Springfield	789	99
+13	Super	Man	Kypto	-346	33
+14	Peter	Griffens	Providence	-3580	99
+15	Fred	Flintstone	Bedrock	542	11
+21	Homer	Simpson	Springfield	-8270	99
+31	Sideshow	Bob	Springfield	-4869	66
+--------------
+SELECT * FROM Purchases
+--------------
+
+CustomerID	ProductID	Quantity
+14	66	19
+15	66	2
+15	78	2
+21	12	14
+21	66	10
+21	99	20
+31	12	2
+31	66	2
+31	78	4
+31	99	1
+--------------
+CREATE VIEW v1 AS(
+SELECT Customer.FirstName, Customer.LastName, Description, Quantity, Cost, Quantity * Cost AS TotalCost
+FROM Customer, Product, Purchases
+	WHERE Customer.CustomerID = Purchases.CustomerID
+	AND Product.ProductID = Purchases.ProductID
+	)
+--------------
+
+--------------
+SELECT * FROM v1
+--------------
+
+FirstName	LastName	Description	Quantity	Cost	TotalCost
+Peter	Griffens	Elbow pads	19	14.25	270.75
+Fred	Flintstone	Elbow pads	2	14.25	28.5
+Fred	Flintstone	Knee Pads	2	12.15	24.3
+Homer	Simpson	Socks	14	2	28
+Homer	Simpson	Elbow pads	10	14.25	142.5
+Homer	Simpson	Helmet	20	29	580
+Sideshow	Bob	Socks	2	2	4
+Sideshow	Bob	Elbow pads	2	14.25	28.5
+Sideshow	Bob	Knee Pads	4	12.15	48.6
+Sideshow	Bob	Helmet	1	29	29
+--------------
+SELECT * FROM v1
+	WHERE TotalCost > 100
+--------------
+
+FirstName	LastName	Description	Quantity	Cost	TotalCost
+Peter	Griffens	Elbow pads	19	14.25	270.75
+Homer	Simpson	Elbow pads	10	14.25	142.5
+Homer	Simpson	Helmet	20	29	580
+--------------
+DELETE FROM Product WHERE Product.ProductID = 23
+--------------
+
+--------------
+SELECT * FROM Product
+--------------
+
+ProductID	Description	Cost	QuantityAvailable
+11	Bike	150	200
+12	Socks	2	100
+66	Elbow pads	14.25	120
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+SELECT * FROM Agent
+--------------
+
+AgentID	FirstName	LastName	City	Commission
+11	Regis	Philbin	Boston	33
+12	Rosie	Cox	Ottawa	50
+22	Courtney	Cox	New York	25
+33	David	Letterman	Bedrock	100
+66	Rosie	ODonnell	Ottawa	100
+77	Mohamed	Faid	London	200
+99	Hugh	Grant	Springfield	16
+--------------
+SELECT * FROM Customer
+--------------
+
+CustomerID	FirstName	LastName	City	PhoneNumber	AgentID
+10	Barney	Rubble	Bedrock	-457	11
+12	Monty	Burns	Springfield	789	99
+13	Super	Man	Kypto	-346	33
+14	Peter	Griffens	Providence	-3580	99
+15	Fred	Flintstone	Bedrock	542	11
+21	Homer	Simpson	Springfield	-8270	99
+31	Sideshow	Bob	Springfield	-4869	66
+--------------
+SELECT * FROM Purchases
+--------------
+
+CustomerID	ProductID	Quantity
+14	66	19
+15	66	2
+15	78	2
+21	12	14
+21	66	10
+21	99	20
+31	12	2
+31	66	2
+31	78	4
+31	99	1

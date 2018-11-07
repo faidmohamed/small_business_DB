@@ -2,7 +2,7 @@ USE mfaidassign2db;
 
 LOAD DATA LOCAL INFILE './loaddatafall2018.txt'
 INTO TABLE Product
-COLUMN TERMINATED BY ','
+COLUMNs TERMINATED BY ','
 LINES TERMINATED BY '\n';
 
 SELECT * FROM Product;
@@ -19,7 +19,8 @@ VALUES
 	(66, 'Rosie', 'ODonnell', 'Ottawa', 100),
 	(33, 'David', 'Letterman', 'Bedrock', 100),
 	(11, 'Regis', 'Philbin',  'Boston', 33),
-	(12, 'Rosie', 'Cox',  'Ottawa', 50);
+	(12, 'Rosie', 'Cox',  'Ottawa', 50),
+	(77, 'Mohamed', 'Faid', 'London', 200);
 
 INSERT INTO Customer
 VALUES

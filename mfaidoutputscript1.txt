@@ -1,0 +1,93 @@
+Warning: Using a password on the command line interface can be insecure.
+--------------
+SHOW DATABASES
+--------------
+
+Database
+information_schema
+MYFIRSTDATABASE
+mfaidassign2db
+mysql
+performance_schema
+--------------
+DROP DATABASE mfaidassign2db
+--------------
+
+--------------
+CREATE DATABASE mfaidassign2db
+--------------
+
+--------------
+SHOW TABLES
+--------------
+
+--------------
+GRANT USAGE ON *.* TO 'ta'@'localhost'
+--------------
+
+--------------
+DROP USER 'ta'@'localhost'
+--------------
+
+--------------
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319'
+--------------
+
+--------------
+GRANT ALL PRIVILEGES ON mfaidassign2db.* TO 'ta'@'localhost'
+--------------
+
+--------------
+FLUSH PRIVILEGES
+--------------
+
+--------------
+CREATE  TABLE Product (
+	ProductID VARCHAR(2) NOT NULL, 
+	Description VARCHAR(20), 
+	Cost REAL,  
+	QuantityAvailable INT, 
+	PRIMARY KEY (ProductID))
+--------------
+
+--------------
+CREATE  TABLE Agent (
+	AgentID VARCHAR(2) NOT NULL, 
+	FirstName VARCHAR(30), 
+	LastName VARCHAR(30), 
+	City VARCHAR(15),  
+	Commission REAL, 
+	PRIMARY KEY (AgentID))
+--------------
+
+--------------
+CREATE  TABLE Customer (
+	CustomerID VARCHAR(2) NOT NULL, 
+	FirstName VARCHAR(30), 
+	LastName VARCHAR(30), 
+	City VARCHAR(15),  
+	PhoneNumber VARCHAR(10),
+	AgentID VARCHAR(2),
+	FOREIGN KEY (AgentID) REFERENCES Agent(AgentID), 
+	PRIMARY KEY (CustomerID))
+--------------
+
+--------------
+CREATE  TABLE Purchases (
+	CustomerID VARCHAR(2), 
+	ProductID VARCHAR(2), 
+	Quantity INT, 
+	FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID), 
+	FOREIGN KEY (ProductID) REFERENCES Product(ProductID), 
+	PRIMARY KEY (CustomerID, ProductID))
+--------------
+
+--------------
+SHOW TABLES
+--------------
+
+Tables_in_mfaidassign2db
+Agent
+Customer
+Product
+Purchases
