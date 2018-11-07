@@ -1,0 +1,25 @@
+USE mfaidassign2db;
+SELECT * FROM Product;
+SELECT * FROM Agent;
+SELECT * FROM Customer;
+SELECT * FROM Purchases;
+
+CREATE VIEW v1 AS(
+SELECT Customer.FirstName, Customer.LastName, Description, Quantity, Cost, Quantity * Cost AS TotalCost
+FROM Customer, Product, Purchases
+	WHERE Customer.CustomerID = Purchases.CustomerID
+	AND Product.ProductID = Purchases.ProductID
+	);
+
+SELECT * FROM v1;
+
+SELECT * FROM v1
+	WHERE TotalCost > 100;
+
+DELETE FROM Product WHERE Product.ProductID = 23;
+
+SELECT * FROM Product;
+SELECT * FROM Agent;
+SELECT * FROM Customer;
+SELECT * FROM Purchases;
+
