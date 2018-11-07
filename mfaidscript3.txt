@@ -1,0 +1,72 @@
+SELECT Description FROM Products;
+
+SELECT DISTINCT City FROM Customers;
+
+SELECT * FROM Agent ORDER BY City ASC;
+
+SELECT (FirstName, LastName) FROM Customer WHERE City = 'Springfield';
+
+SELECT Lastname FROM Customer WHERE AgentID = 11;
+
+SELECT Description FROM Product WHERE Description CONTAINS 'pad' OR Description CONTAINS 'Pad';
+
+SELECT LastName, Description, Quantity 
+	FROM Customer, Product, Purchases 
+	WHERE Customer.CustomerID = Purchses.CustomerID 
+	AND Product.ProductID = Purchases.ProductID;
+
+SELECT COUNT (FirstName) AS 'Homer's Total Purchases' 
+	FROM Purchases, Customers 
+	WHERE Customers.CustomerID = Purchses.CustomerID AND FirstName = Homer;
+
+SELECT FirstName, LastName
+	COUNT (Description) AS Purchases_count 
+	FROM Customer, Product, Purchases 
+	WHERE Customer.CustomerID = Purchses.CustomerID 
+	AND Product.ProductID = Purchases.ProductID;
+
+SELECT Description, QuantityAvailable
+	FROM Purchases, Product
+	WHERE Product.ProductID <> Purchase.ProductID;
+
+SELECT Description, QuantityAvailable
+	FROM Customer, Product, Purchases
+	WHERE Customer.CustomerID = Purchses.CustomerID
+	AND Product.ProductID = Purchases.ProductID;
+	AND FirstName <> 'Fred'
+	AND LastName <> 'Flintstone';
+
+ SELECT Agent.FirstName, Agent.LastName
+ 	FROM Agent, Customer
+ 	WHERE Customer.AgentID = Agent.AgentID
+ 	AND Agent.City = Customer.City;
+
+ SELECT SUM Quantity FROM Purchases WHERE Product.ID = 78;
+
+ SELECT Description
+ 	FROM Product, Purchases
+	WHERE Product.ProductID = Purchases.ProductID
+	AND COUNT(Purchases.ProductID) > 3;
+
+ --Q15-----
+CREATE TABLE temp1 AS
+SELECT Agent.FirstName, Agent.LastName, CustomerID AS AgentFname, AgentLname, CID
+	FROM Agents, Customers
+	WHERE Customer.AgentID = Agent.AgentID;
+
+CREATE TABLE temp2 AS
+SELECT CustomerID
+	FROM Customer, Product, Purchases
+	WHERE Customer.CustomerID = Purchses.CustomerID
+	AND Product.ProductID = Purchases.ProductID;
+	AND Product.ProducID = 78;
+
+SELECT AgentFname, AgentLname
+	FROM temp1, temp2
+	WHERE temp1.CID = temp2.CustomerID;
+
+
+
+
+
+
